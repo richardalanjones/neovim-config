@@ -1,3 +1,4 @@
+
 vim.api.nvim_create_autocmd('User', {
   pattern = 'LspAttached',
   desc = 'LSP actions',
@@ -73,8 +74,9 @@ local lua_config = {
   settings = {
     Lua = {
       runtime = {
-        version = 'LuaJIT',
-        --version = 'Lua 5.4',
+        --version = 'LuaJIT',
+        version = 'Lua 5.4',
+      
 	},
       diagnostics = {
         globals = {'vim'},
@@ -93,16 +95,17 @@ local lua_config = {
 }
 
 
-local servers = { pyright=true, tsserver=true, julials=true, sumneko_lua=lua_config, html=true }
---local servers = { emmet_ls=true, eslint=true, pyright=true, sumneko_lua=lua_config, tsserver=true, julials=true, html=true }
-
+local servers = { emmet_ls=true, eslint=true, pyright=true, sumneko_lua=lua_config, tsserver=true, julials=true, html=true }
+local capabilities = require('cmp_nvim_lsp').update_capabilities(
+    vim.lsp.protocol.make_client_capabilities()
+  )
 local setup_server = function(server, config)
   if not config then
     return
   end
 
   if type(config) ~= "table" then
-	config = {}
+    config = {capabilities= capabilities}
   end
 
   lspconfig[server].setup(config)
@@ -111,8 +114,6 @@ end
 for server, config in pairs(servers) do
   setup_server(server, config)
 end
-
-
 
 --null_ls.setup {
 --    sources = {

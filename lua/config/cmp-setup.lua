@@ -4,8 +4,9 @@ require('luasnip.loaders.from_vscode').lazy_load()
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
-
 local select_opts = {behavior = cmp.SelectBehavior.Select}
+local lspkind = require('lspkind')
+
 
 cmp.setup({
   snippet = {
@@ -22,20 +23,25 @@ cmp.setup({
   window = {
     documentation = cmp.config.window.bordered()
   },
-  formatting = {
-    fields = {'menu', 'abbr', 'kind'},
-    format = function(entry, item)
-      local menu_icon = {
-        nvim_lsp = 'λ',
-        luasnip = '⋗',
-        buffer = 'Ω',
-        path = '🖫',
-      }
+  -- using lspkind so done need this below 
+  --formatting = {
+  --  fields = {'menu', 'abbr', 'kind'},
+  --  format = function(entry, item)
+  --    local menu_icon = {
+  --      nvim_lsp = 'λ',
+  --      luasnip = '⋗',
+  --      buffer = 'Ω',
+  --      path = '🖫',
+  --    }
 
-      item.menu = menu_icon[entry.source.name]
-      return item
-    end,
-  },
+  --    item.menu = menu_icon[entry.source.name]
+  --    return item
+  --  end,
+  --}
+	formatting = {
+		format = lspkind.cmp_format({with_text=true, maxwidth=50})
+	}
+  ,
   mapping = {
     ['<Up>'] = cmp.mapping.select_prev_item(select_opts),
     ['<Down>'] = cmp.mapping.select_next_item(select_opts),
