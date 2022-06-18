@@ -5,7 +5,6 @@ require'nvim-treesitter.configs'.setup {
 	"typescript",
 	"julia",
   },
-
   -- Install languages synchronously (only applied to `ensure_installed`)
   sync_install = false,
 

@@ -35,7 +35,6 @@ vim.api.nvim_create_autocmd('User', {
   end
 })
 
-
 local has_lsp, lspconfig = pcall(require, "lspconfig")
 if not has_lsp then
   return
@@ -69,12 +68,12 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
 -- LSP Servers
 ---
 
+
 local lua_config = {
-  settings = {
+	settings = {
     Lua = {
       runtime = {
         version = 'LuaJIT',
-        --version = 'Lua 5.4',
 	},
       diagnostics = {
         globals = {'vim'},
@@ -93,7 +92,7 @@ local lua_config = {
 }
 
 
-local servers = { pyright=true, tsserver=true, julials=true, sumneko_lua=lua_config, html=true }
+local servers = { julials=true, pyright=true, tsserver=true, sumneko_lua=lua_config, html=true }
 --local servers = { emmet_ls=true, eslint=true, pyright=true, sumneko_lua=lua_config, tsserver=true, julials=true, html=true }
 
 local setup_server = function(server, config)

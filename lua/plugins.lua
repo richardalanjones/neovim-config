@@ -89,6 +89,8 @@ use { 'hrsh7th/nvim-cmp',
 	config = [[require('config.cmp-setup')]],
 }
 
+use { 'windwp/nvim-autopairs', config = [[require('config.autopairs-setup')]], after = "nvim-cmp" }
+
 -- snippets
 use "onsails/lspkind-nvim"
 
