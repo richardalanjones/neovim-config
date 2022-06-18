@@ -4,7 +4,6 @@ if not status_ok then
 	return
 end
 
-
 toggleterm.setup {
 	size = 20,
 	open_mapping = [[<c-\>]],
@@ -13,7 +12,7 @@ toggleterm.setup {
 	shade_terminals = true,
 	shading_factor = 2,
 	start_in_insert = true,
-	insert_mappings = false,
+	insert_mappings = true,
 	persist_size = true,
 	direction = "horizontal",
 	close_on_exit = true,
@@ -37,24 +36,18 @@ function _G.set_terminal_keymaps()
   vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], buf_opts)
 end
 
-vim.cmd('autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()')
-
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 local Terminal  = require('toggleterm.terminal').Terminal
-local julia = Terminal:new({ cmd = "julia", hidden = false, on_open = function(term)
-	vim.cmd("TermExec cmd='using Pkg'")
-	vim.cmd([[TermExec cmd='Pkg.activate(".")', go_back=0]])
-end})
+local julia = Terminal:new({ cmd = "julia", hidden = false})
 
-function _julia_toggle()
+function julia_repl()
   julia:toggle()
-
 end
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 --Julia REPL
-map("n", "<leader>jr", "<cmd>lua _julia_toggle()<CR>", opts)
-
+map("n", "<leader>jr", [[<cmd>lua julia_repl()<CR> using Pkg<CR> Pkg.activate(".")<CR>]], opts)
 map('n', '<leader>zz', ':ToggleTermSendCurrentLine <cr>', opts)
 map('n', '<leader>vv', ':ToggleTermSendVisualSelection <cr>', opts)
