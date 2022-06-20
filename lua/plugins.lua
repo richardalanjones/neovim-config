@@ -76,23 +76,23 @@ use "tami5/lspsaga.nvim" -- lsp icons
 -- CMP
 use { 'hrsh7th/nvim-cmp',
 	requires = {
-		'L3MON4D3/LuaSnip',
 		{ 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
 		'hrsh7th/cmp-nvim-lsp',
 		'hrsh7th/cmp-nvim-lsp-signature-help',
 		{ 'hrsh7th/cmp-path', after = 'nvim-cmp' },
 		{ 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
-		{ 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
 		'lukas-reineke/cmp-under-comparator',
 		{ 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
 	},
 	config = [[require('config.cmp-setup')]],
 }
 
-use { 'windwp/nvim-autopairs', config = [[require('config.autopairs-setup')]], after = "nvim-cmp" }
-
 -- snippets
-use "onsails/lspkind-nvim"
+use {'L3MON4D3/LuaSnip', config=[[require('config.luasnip-setup')]]}
+use {'saadparwaiz1/cmp_luasnip'}
+--use "onsails/lspkind-nvim"
+
+use { 'windwp/nvim-autopairs', config = [[require('config.autopairs-setup')]], after = "nvim-cmp" }
 
 -- icons
 use "kyazdani42/nvim-web-devicons" --> enable icons
@@ -109,7 +109,6 @@ use "kyazdani42/nvim-web-devicons" --> enable icons
             require("config.telescope").setup()
         end,
     }
---use { 'nvim-telescope/telescope.nvim', requires = "nvim-lua/plenary.nvim" }
 
 use { 'nvim-lualine/lualine.nvim', config = [[require('config.lualine-setup')]] }
 

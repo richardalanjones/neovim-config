@@ -2,11 +2,10 @@ vim.api.nvim_create_autocmd('User', {
   pattern = 'LspAttached',
   desc = 'LSP actions',
   callback = function()
-    local bufmap = function(mode, lhs, rhs)
+      local bufmap = function(mode, lhs, rhs)
       local opts = {buffer = true}
       vim.keymap.set(mode, lhs, rhs, opts)
     end
-
     -- Displays hover information about the symbol under the cursor
     bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
     -- Jump to the definition
