@@ -28,8 +28,6 @@ local function Blah()
 	print('Blah')
 end
 
-Blah()
-
 return snippets, autosnippets
 
 
