@@ -112,7 +112,7 @@ use "kyazdani42/nvim-web-devicons" --> enable icons
 
 use { 'nvim-lualine/lualine.nvim', config = [[require('config.lualine-setup')]] }
 
-use { "jose-elias-alvarez/null-ls.nvim", requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' } }
+use { "jose-elias-alvarez/null-ls.nvim", requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' }, config = [[require('config.null-ls-setup')]]}
 --use { "jose-elias-alvarez/null-ls.nvim", requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' }, config = [[require('config.null-ls-setup')]] }
 
 --> treesitter & treesitter modules/plugins
