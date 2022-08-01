@@ -6,6 +6,7 @@ local sources = {
 	--diagnostics.eslint,
 	--code_actions.eslint,
 	--formatting.autopep8,
+	formatting.rustfmt.with({ extra_args = { "--edition=2021" } }),
 	formatting.prettier,
 	formatting.lua_format.with({
 		extra_args = {

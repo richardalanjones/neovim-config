@@ -1,42 +1,42 @@
 vim.api.nvim_create_autocmd('User', {
-  pattern = 'LspAttached',
-  desc = 'LSP actions',
-  callback = function()
-      local bufmap = function(mode, lhs, rhs)
-      local opts = {buffer = true}
-      vim.keymap.set(mode, lhs, rhs, opts)
-    end
-    -- Displays hover information about the symbol under the cursor
-    bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
-    -- Jump to the definition
-    bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
-    -- Jump to declaration
-    bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
-    -- Lists all the implementations for the symbol under the cursor
-    bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
-    -- Jumps to the definition of the type symbol
-    bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
-    -- Lists all the references
-    bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
-    -- Displays a function's signature information
-    bufmap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
-    -- Renames all references to the symbol under the cursor
-    bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
-    -- Selects a code action available at the current cursor position
-    bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
-    bufmap('x', '<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
-    -- Show diagnostics in a floating window
-    bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-    -- Move to the previous diagnostic
-    bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-    -- Move to the next diagnostic
-    bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
-  end
+	pattern = 'LspAttached',
+	desc = 'LSP actions',
+	callback = function()
+		local bufmap = function(mode, lhs, rhs)
+			local opts = { buffer = true }
+			vim.keymap.set(mode, lhs, rhs, opts)
+		end
+		-- Displays hover information about the symbol under the cursor
+		bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+		-- Jump to the definition
+		bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+		-- Jump to declaration
+		bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+		-- Lists all the implementations for the symbol under the cursor
+		bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
+		-- Jumps to the definition of the type symbol
+		bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
+		-- Lists all the references
+		bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+		-- Displays a function's signature information
+		bufmap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+		-- Renames all references to the symbol under the cursor
+		bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
+		-- Selects a code action available at the current cursor position
+		bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+		bufmap('x', '<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
+		-- Show diagnostics in a floating window
+		bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+		-- Move to the previous diagnostic
+		bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+		-- Move to the next diagnostic
+		bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+	end
 })
 
 local has_lsp, lspconfig = pcall(require, "lspconfig")
 if not has_lsp then
-  return
+	return
 end
 
 ---
@@ -44,23 +44,23 @@ end
 ---
 
 local lsp_defaults = {
-  flags = {
-    debounce_text_changes = 150,
-  },
-  capabilities = require('cmp_nvim_lsp').update_capabilities(
-    vim.lsp.protocol.make_client_capabilities()
-  ),
-  on_attach = function(client, bufnr)
---    print('default on attach')
-	vim.api.nvim_exec_autocmds('User', {pattern = 'LspAttached'})
-  end
+	flags = {
+		debounce_text_changes = 150,
+	},
+	capabilities = require('cmp_nvim_lsp').update_capabilities(
+		vim.lsp.protocol.make_client_capabilities()
+	),
+	on_attach = function(client, bufnr)
+		--    print('default on attach')
+		vim.api.nvim_exec_autocmds('User', { pattern = 'LspAttached' })
+	end
 }
 
 -- set updated default config
 lspconfig.util.default_config = vim.tbl_deep_extend(
-  'force',
-  lspconfig.util.default_config,
-  lsp_defaults
+	'force',
+	lspconfig.util.default_config,
+	lsp_defaults
 )
 
 ---
@@ -70,44 +70,44 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
 
 local lua_config = {
 	settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
+		Lua = {
+			runtime = {
+				version = 'LuaJIT',
+			},
+			diagnostics = {
+				globals = { 'vim' },
+			},
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+			telemetry = {
+				enable = false,
+			},
+		},
 	},
-      diagnostics = {
-        globals = {'vim'},
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
 	on_attach = function(client, bufnr)
-    lspconfig.util.default_config.on_attach(client, bufnr)
-  end
+		lspconfig.util.default_config.on_attach(client, bufnr)
+	end
 }
 
 
-local servers = { emmet_ls=true, eslint=true, julials=true, pyright=true, tsserver=true, sumneko_lua=lua_config, html=true }
+local servers = { rust_analyzer = true, emmet_ls = true, eslint = true, julials = true, pyright = true, tsserver = true, sumneko_lua = lua_config, html = true }
 --local servers = { emmet_ls=true, eslint=true, pyright=true, sumneko_lua=lua_config, tsserver=true, julials=true, html=true }
 
 local setup_server = function(server, config)
-  if not config then
-    return
-  end
+	if not config then
+		return
+	end
 
-  if type(config) ~= "table" then
-	config = {}
-  end
+	if type(config) ~= "table" then
+		config = {}
+	end
 
-  lspconfig[server].setup(config)
+	lspconfig[server].setup(config)
 end
 
 for server, config in pairs(servers) do
-  setup_server(server, config)
+	setup_server(server, config)
 end
 
 
@@ -381,90 +381,90 @@ end
 
 
 --local lsp_installer = require("nvim-lsp-installer")
- ---- Mappings.
- ---- See `:help vim.diagnostic.*` for documentation on any of the below functions
- --local opts = { noremap=true, silent=true }
- --vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
- --vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
- --vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
- --vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
- --
- ---- Use an on_attach function to only map the following keys
- ---- after the language server attaches to the current buffer
- --local on_attach = function(client, bufnr)
- --  -- Enable completion triggered by <c-x><c-o>
- --  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
- --
- --  -- Mappings.
- --  -- See `:help vim.lsp.*` for documentation on any of the below functions
- --  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
- --  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
- --  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
- --  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
- --  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
- --  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
- --  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
- --  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
- --  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
- --  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
- --  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
- --  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
- --  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
- --
- --end
- --
- ---- Use a loop to conveniently call 'setup' on multiple servers and
- ---- map buffer local keybindings when the language server attaches
- --
- --local capabilities = vim.lsp.protocol.make_client_capabilities()
- --	  capabilities.textDocument.completion.completionItem.snippetSupport = true
- --      capabilities.textDocument.completion.completionItem.preselectSupport = true
- --      capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
- --      capabilities.textDocument.completion.completionItem.deprecatedSupport = true
- --      capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
- --      capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
- --      capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
- --      capabilities.textDocument.completion.completionItem.resolveSupport = {
- --        properties = { "documentation", "detail", "additionalTextEdits" },
- --      }
- --      capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown" }
- --      capabilities.textDocument.codeAction = {
- --        dynamicRegistration = true,
- --        codeActionLiteralSupport = {
- --          codeActionKind = {
- --            valueSet = (function()
- --              local res = vim.tbl_values(vim.lsp.protocol.CodeActionKind)
- --              table.sort(res)
- --              return res
- --            end)(),
- --          },
- --        },
- --      }
- --
- --
- --capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
- --
- --local servers = { 'emmet_ls', 'eslint', 'pyright', 'sumneko_lua', 'tsserver', 'julials' }
- --
- --for _, name in pairs(servers) do
- --	local server_is_found, server = lsp_installer.get_server(name)
- --	if server_is_found then
- --		if not server:is_installed() then
- --			print("Installing " .. name)
- --			server:install()
- --		end
- --	end
- --end
- --
- --lsp_installer.on_server_ready(function(server)
- --	-- Specify the default options which we'll use to setup all servers
- --	local default_opts = {
- --		on_attach = on_attach,
- --		capabilities = capabilities,
- --	}
- --
- --	server:setup(default_opts)
- --end)
+---- Mappings.
+---- See `:help vim.diagnostic.*` for documentation on any of the below functions
+--local opts = { noremap=true, silent=true }
+--vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+--vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+--vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+--vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+--
+---- Use an on_attach function to only map the following keys
+---- after the language server attaches to the current buffer
+--local on_attach = function(client, bufnr)
+--  -- Enable completion triggered by <c-x><c-o>
+--  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+--
+--  -- Mappings.
+--  -- See `:help vim.lsp.*` for documentation on any of the below functions
+--  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+--  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+--  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+--  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+--  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+--  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+--  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+--  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+--  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+--  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+--  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+--  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+--  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+--
+--end
+--
+---- Use a loop to conveniently call 'setup' on multiple servers and
+---- map buffer local keybindings when the language server attaches
+--
+--local capabilities = vim.lsp.protocol.make_client_capabilities()
+--	  capabilities.textDocument.completion.completionItem.snippetSupport = true
+--      capabilities.textDocument.completion.completionItem.preselectSupport = true
+--      capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+--      capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+--      capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+--      capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+--      capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+--      capabilities.textDocument.completion.completionItem.resolveSupport = {
+--        properties = { "documentation", "detail", "additionalTextEdits" },
+--      }
+--      capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown" }
+--      capabilities.textDocument.codeAction = {
+--        dynamicRegistration = true,
+--        codeActionLiteralSupport = {
+--          codeActionKind = {
+--            valueSet = (function()
+--              local res = vim.tbl_values(vim.lsp.protocol.CodeActionKind)
+--              table.sort(res)
+--              return res
+--            end)(),
+--          },
+--        },
+--      }
+--
+--
+--capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+--
+--local servers = { 'emmet_ls', 'eslint', 'pyright', 'sumneko_lua', 'tsserver', 'julials' }
+--
+--for _, name in pairs(servers) do
+--	local server_is_found, server = lsp_installer.get_server(name)
+--	if server_is_found then
+--		if not server:is_installed() then
+--			print("Installing " .. name)
+--			server:install()
+--		end
+--	end
+--end
+--
+--lsp_installer.on_server_ready(function(server)
+--	-- Specify the default options which we'll use to setup all servers
+--	local default_opts = {
+--		on_attach = on_attach,
+--		capabilities = capabilities,
+--	}
+--
+--	server:setup(default_opts)
+--end)
 
 --for _, lsp in pairs(servers) do
 --  require('lspconfig')[lsp].setup {
