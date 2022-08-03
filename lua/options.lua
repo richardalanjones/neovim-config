@@ -10,6 +10,7 @@ local options = {
 	softtabstop = 4,
 	swapfile = false,
 	tabstop = 4,
+	hlsearch = false,
 }
 
 -- not sure what this does yet
