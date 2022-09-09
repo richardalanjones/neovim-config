@@ -56,20 +56,20 @@ use { "dracula/vim", config = [[require('config.colorschemes.dracula')]] }
 --LSP
 use { "williamboman/nvim-lsp-installer",
 	config = function() require('nvim-lsp-installer').setup {
-    ui = {
-        check_outdated_servers_on_open = false,
-        icons = {
-            server_installed = "",
-            server_pending = "",
-            server_uninstalled = "",
-        },
-		},
-	}
+			ui = {
+				check_outdated_servers_on_open = false,
+				icons = {
+					server_installed = "",
+					server_pending = "",
+					server_uninstalled = "",
+				},
+			},
+		}
 	end }
 
-use { "neovim/nvim-lspconfig",  config = [[require('config.lsp-setup')]]}
+use { "neovim/nvim-lspconfig", config = [[require('config.lsp-setup')]] }
 
-use {"ray-x/lsp_signature.nvim", requires = "neovim/nvim-lspconfig"}
+use { "ray-x/lsp_signature.nvim", requires = "neovim/nvim-lspconfig" }
 
 use "tami5/lspsaga.nvim" -- lsp icons
 
@@ -88,8 +88,11 @@ use { 'hrsh7th/nvim-cmp',
 }
 
 -- snippets
-use {'L3MON4D3/LuaSnip', config=[[require('config.luasnip-setup')]]}
-use {'saadparwaiz1/cmp_luasnip'}
+use { 'L3MON4D3/LuaSnip', config = function()
+	require('config.snip').setup()
+end,
+}
+use { 'saadparwaiz1/cmp_luasnip' }
 --use "onsails/lspkind-nvim"
 
 use { 'windwp/nvim-autopairs', config = [[require('config.autopairs-setup')]], after = "nvim-cmp" }
@@ -98,21 +101,22 @@ use { 'windwp/nvim-autopairs', config = [[require('config.autopairs-setup')]], a
 use "kyazdani42/nvim-web-devicons" --> enable icons
 
 -- Telescope
-    use {
-        "nvim-telescope/telescope.nvim",
-        requires = {
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope-project.nvim",
-            { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-        },
-        config = function()
-            require("config.telescope").setup()
-        end,
-    }
+use {
+	"nvim-telescope/telescope.nvim",
+	requires = {
+		"nvim-lua/plenary.nvim",
+		"nvim-telescope/telescope-project.nvim",
+		{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+	},
+	config = function()
+		require("config.telescope").setup()
+	end,
+}
 
 use { 'nvim-lualine/lualine.nvim', config = [[require('config.lualine-setup')]] }
 
-use { "jose-elias-alvarez/null-ls.nvim", requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' }, config = [[require('config.null-ls-setup')]]}
+use { "jose-elias-alvarez/null-ls.nvim", requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+	config = [[require('config.null-ls-setup')]] }
 --use { "jose-elias-alvarez/null-ls.nvim", requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' }, config = [[require('config.null-ls-setup')]] }
 
 --> treesitter & treesitter modules/plugins
@@ -120,4 +124,3 @@ use { "nvim-treesitter/nvim-treesitter", config = [[require('config.treesitter-s
 use 'romgrk/barbar.nvim'
 
 use { 'akinsho/toggleterm.nvim', config = [[require('config.toggleterm-setup')]] }
-
