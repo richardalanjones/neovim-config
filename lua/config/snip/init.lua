@@ -1,5 +1,7 @@
 local M = {}
-local snippets_folder = vim.fn.stdpath "config" .. "/lua/config/snip/snippets/"
+local custom_snippets_folder = vim.fn.stdpath "config" .. "/lua/config/snip/snippets/"
+local snippets_folder = vim.fn.stdpath "config" .. "/lua/snippets/"
+--print('this is snippents folder', snippets_folder)
 local ls = require "luasnip"
 local types = require "luasnip.util.types"
 
@@ -96,12 +98,12 @@ function M.setup()
 
 	-- Lazy load snippets
 	require("luasnip.loaders.from_vscode").lazy_load()
-	require("luasnip.loaders.from_snipmate").lazy_load()
-	require("luasnip.loaders.from_lua").lazy_load { paths = snippets_folder }
+	--require("luasnip.loaders.from_snipmate").lazy_load()
+	require("luasnip.loaders.from_lua").lazy_load { paths = custom_snippets_folder }
 	vim.cmd [[command! LuaSnipEdit :lua require("luasnip.loaders.from_lua").edit_snippet_files()]]
 
 	-- Load custom typescript snippets
-	require("luasnip.loaders.from_vscode").lazy_load { paths = { "./snippets/typescript" } }
+	require("luasnip.loaders.from_vscode").lazy_load { paths = { snippets_folder .. "typescript" } }
 	-- require("luasnip.loaders.from_vscode").lazy_load { paths = { "./snippets/python" } }
 	-- require("luasnip.loaders.from_vscode").lazy_load { paths = { "./snippets/rust" } }
 
