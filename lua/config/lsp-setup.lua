@@ -91,7 +91,7 @@ local lua_config = {
 }
 
 
-local servers = { rust_analyzer = true, emmet_ls = true, eslint = true, julials = true, pyright = true, sumneko_lua = lua_config, html = true }
+local servers = { rust_analyzer = true, emmet_ls = true, julials = true, pyright = true, sumneko_lua = lua_config, html = true, tsserver=true }
 --local servers = { emmet_ls=true, eslint=true, pyright=true, sumneko_lua=lua_config, tsserver=true, julials=true, html=true }
 
 local setup_server = function(server, config)
