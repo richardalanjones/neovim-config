@@ -4,7 +4,7 @@ local options = {
 	-- window-local options
 	cursorline = true,
 	number = true,
-	--relativenumber = true,
+	relativenumber = true,
 	-- buffer-local options
 	shiftwidth = 4,
 	softtabstop = 4,
