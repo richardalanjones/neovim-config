@@ -45,7 +45,7 @@ cmp.setup({
 		["<A-u>"] = cmp.mapping.confirm({ select = true }),
 		-- 	["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
 		-- 	["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-		["<C-i>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+--		["<C-i>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 		--	["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
 		["<C-e>"] = cmp.mapping({
 			i = cmp.mapping.abort(),
@@ -56,16 +56,16 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 		-- ["<Space><Space>"] = cmp.mapping.confirm({ select = false }),
 		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-		 ["<Tab>"] = cmp.mapping(function(fallback)
-		 	if cmp.visible() then
-		 		cmp.select_next_item()
-		 	else
-		 		fallback()
-		 	end
-		 end, {
-		 	"i",
-		 	"s",
-		 }),
+--		 ["<Tab>"] = cmp.mapping(function(fallback)
+--		 	if cmp.visible() then
+--		 		cmp.select_next_item()
+--		 	else
+--		 		fallback()
+--		 	end
+--		 end, {
+--		 	"i",
+--		 	"s",
+--		 }),
 		-- 	-- ["<S-Tab>"] = cmp.mapping(function(fallback)
 		-- 	-- 	if cmp.visible() then
 		-- 	-- 		cmp.select_prev_item()
