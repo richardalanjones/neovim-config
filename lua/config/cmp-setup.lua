@@ -38,8 +38,8 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		["<C-p>"] = cmp.mapping.select_prev_item(),
-		["<C-n>"] = cmp.mapping.select_next_item(),
+		["<C-k>"] = cmp.mapping.select_prev_item(),
+		["<C-j>"] = cmp.mapping.select_next_item(),
 		["<A-o>"] = cmp.mapping.select_prev_item(),
 		["<A-i>"] = cmp.mapping.select_next_item(),
 		["<A-u>"] = cmp.mapping.confirm({ select = true }),
@@ -56,16 +56,16 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 		-- ["<Space><Space>"] = cmp.mapping.confirm({ select = false }),
 		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
---		 ["<Tab>"] = cmp.mapping(function(fallback)
---		 	if cmp.visible() then
---		 		cmp.select_next_item()
---		 	else
---		 		fallback()
---		 	end
---		 end, {
---		 	"i",
---		 	"s",
---		 }),
+		 ["<Tab>"] = cmp.mapping(function(fallback)
+		 	if cmp.visible() then
+		 		cmp.select_next_item()
+		 	else
+		 		fallback()
+		 	end
+		 end, {
+		 	"i",
+		 	"s",
+		 }),
 		-- 	-- ["<S-Tab>"] = cmp.mapping(function(fallback)
 		-- 	-- 	if cmp.visible() then
 		-- 	-- 		cmp.select_prev_item()
