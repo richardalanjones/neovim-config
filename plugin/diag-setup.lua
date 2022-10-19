@@ -14,7 +14,10 @@ sign({name = 'DiagnosticSignInfo', text = ''})
 
 vim.diagnostic.config({
   virtual_text = false,
-  severity_sort = true,
+  signs = true,
+  update_in_insert = true,
+  severity_sort = false,
+  underline = true,
   float = {
     border = 'rounded',
     source = 'always',
@@ -23,3 +26,7 @@ vim.diagnostic.config({
   },
 })
 
+vim.cmd([[
+set signcolumn=yes
+autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
+]])

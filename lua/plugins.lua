@@ -54,18 +54,25 @@ use "wbthomason/packer.nvim"
 use { "dracula/vim", config = [[require('config.colorschemes.dracula')]] }
 
 --LSP
-use { "williamboman/nvim-lsp-installer",
-	config = function() require('nvim-lsp-installer').setup {
-			ui = {
-				check_outdated_servers_on_open = false,
-				icons = {
-					server_installed = "",
-					server_pending = "",
-					server_uninstalled = "",
-				},
-			},
-		}
-	end }
+use {'williamboman/mason.nvim', config = function()
+	require('mason').setup()
+end,
+   }
+use 'williamboman/mason-lspconfig.nvim'
+
+
+--use { "williamboman/nvim-lsp-installer",
+--	config = function() require('nvim-lsp-installer').setup {
+--			ui = {
+--				check_outdated_servers_on_open = false,
+--				icons = {
+--					server_installed = "",
+--					server_pending = "",
+--					server_uninstalled = "",
+--				},
+--			},
+--		}
+--	end }
 
 use { "neovim/nvim-lspconfig", config = [[require('config.lsp-setup')]] }
 
@@ -86,6 +93,7 @@ use { 'hrsh7th/nvim-cmp',
 	},
 	config = [[require('config.cmp-setup')]],
 }
+
 
 -- snippets
 use { 'L3MON4D3/LuaSnip', config = function()
@@ -124,3 +132,8 @@ use { "nvim-treesitter/nvim-treesitter", config = [[require('config.treesitter-s
 use 'romgrk/barbar.nvim'
 
 use { 'akinsho/toggleterm.nvim', config = [[require('config.toggleterm-setup')]] }
+
+--rust tools
+use 'simrat39/rust-tools.nvim'
+-- Debugging
+use 'mfussenegger/nvim-dap'

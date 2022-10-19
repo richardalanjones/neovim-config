@@ -92,32 +92,32 @@ local lua_config = {
 
 
 
-local rust_config = {
-	 settings = {
-      ["rust-analyzer"] = {
-        assist = {
-          importEnforceGranularity = true,
-          importPrefix = "crate"
-          },
-        cargo = {
-          allFeatures = true
-          },
-        checkOnSave = {
-          -- default: `cargo check`
-          command = "clippy"
-          },
-        },
-        inlayHints = {
-          lifetimeElisionHints = {
-            enable = true,
-            useParameterNames = true
-          },
-        },
-      }
-    }
+--local rust_config = {
+--	 settings = {
+--      ["rust-analyzer"] = {
+--        assist = {
+--          importEnforceGranularity = true,
+--          importPrefix = "crate"
+--          },
+--        cargo = {
+--          allFeatures = true
+--          },
+--        checkOnSave = {
+--          -- default: `cargo check`
+--          command = "clippy"
+--          },
+--        },
+--        inlayHints = {
+--          lifetimeElisionHints = {
+--            enable = true,
+--            useParameterNames = true
+--          },
+--        },
+--      }
+--    }
 
-
-local servers = { rust_analyzer = rust_config, emmet_ls = true, julials = true, pyright = true, sumneko_lua = lua_config, html = true, tsserver=true }
+-- NOTE RUST-ANALYZER is setup through rust-tools seperately
+local servers = { emmet_ls = true, julials = true, pyright = true, sumneko_lua = lua_config, html = true, tsserver=true }
 --local servers = { emmet_ls=true, eslint=true, pyright=true, sumneko_lua=lua_config, tsserver=true, julials=true, html=true }
 
 local setup_server = function(server, config)
@@ -135,5 +135,25 @@ end
 for server, config in pairs(servers) do
 	setup_server(server, config)
 end
+
+local rt = require("rust-tools")
+
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+		["rust-analyzer"] = {
+                checkOnSave = {
+                    command = "clippy"
+                },
+            },
+  },
+})
+
+
 
 
