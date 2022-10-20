@@ -117,7 +117,7 @@ local lua_config = {
 --    }
 
 -- NOTE RUST-ANALYZER is setup through rust-tools seperately
-local servers = { emmet_ls = true, julials = true, pyright = true, sumneko_lua = lua_config, html = true, tsserver=true }
+local servers = { emmet_ls = true, julials = true, pyright = true, sumneko_lua = lua_config, html = true, tsserver = true }
 --local servers = { emmet_ls=true, eslint=true, pyright=true, sumneko_lua=lua_config, tsserver=true, julials=true, html=true }
 
 local setup_server = function(server, config)
@@ -139,21 +139,20 @@ end
 local rt = require("rust-tools")
 
 rt.setup({
-  server = {
-    on_attach = function(_, bufnr)
-      -- Hover actions
-      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-      -- Code action groups
-      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-    end,
+	server = {
+		on_attach = function(client, bufnr)
+			lspconfig.util.default_config.on_attach(client, bufnr)
+		end,
+		--on_attach = function(_, bufnr)
+		--  -- Hover actions
+		--  vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+		--  -- Code action groups
+		--  vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+		--end,
 		["rust-analyzer"] = {
-                checkOnSave = {
-                    command = "clippy"
-                },
-            },
-  },
+			checkOnSave = {
+				command = "clippy"
+			},
+		},
+	},
 })
-
-
-
-
