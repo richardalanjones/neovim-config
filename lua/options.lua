@@ -11,7 +11,10 @@ local options = {
 	swapfile = false,
 	tabstop = 4,
 	hlsearch = false,
+	incsearch = true,
+	scrolloff = 8,
 }
+
 
 -- not sure what this does yet
 vim.opt.shortmess:append 'c'

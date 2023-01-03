@@ -1,4 +1,4 @@
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 --local expr_options = {noremap = true, expr = true, silent = true}
 
@@ -8,6 +8,7 @@ vim.g.mapleader = ' '
 
 -- Bar Bar
 -- Move to previous/next
+map("n", "<leader>pv", vim.cmd.Ex)
 map('n', '<A-,>', ':BufferPrevious<CR>', opts)
 map('n', '<A-.>', ':BufferNext<CR>', opts)
 -- Re-order to previous/next
@@ -46,4 +47,3 @@ map('n', '<Space>bl', ':BufferOrderByLanguage<CR>', opts)
 --Telecope
 map('n', '<leader>ff', ':Telescope find_files<cr>', opts)
 map('n', '<leader>fg', ':Telescope live_grep<CR>', opts)
-

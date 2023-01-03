@@ -54,10 +54,10 @@ use "wbthomason/packer.nvim"
 use { "dracula/vim", config = [[require('config.colorschemes.dracula')]] }
 
 --LSP
-use {'williamboman/mason.nvim', config = function()
+use { 'williamboman/mason.nvim', config = function()
 	require('mason').setup()
 end,
-   }
+}
 use 'williamboman/mason-lspconfig.nvim'
 
 
@@ -132,6 +132,9 @@ use { "nvim-treesitter/nvim-treesitter", config = [[require('config.treesitter-s
 use 'romgrk/barbar.nvim'
 
 use { 'akinsho/toggleterm.nvim', config = [[require('config.toggleterm-setup')]] }
+
+use "theprimeagen/harpoon"
+
 
 --rust tools
 use 'simrat39/rust-tools.nvim'
