@@ -117,7 +117,7 @@ local lua_config = {
 --    }
 
 -- NOTE RUST-ANALYZER is setup through rust-tools seperately
-local servers = { emmet_ls = true, julials = true, pyright = true, sumneko_lua = lua_config, html = true, tsserver = true }
+local servers = { emmet_ls = true, julials = true, pyright = true, lua_ls = lua_config, html = true, tsserver = true }
 --local servers = { emmet_ls=true, eslint=true, pyright=true, sumneko_lua=lua_config, tsserver=true, julials=true, html=true }
 
 local setup_server = function(server, config)
