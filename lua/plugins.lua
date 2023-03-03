@@ -6,8 +6,8 @@ vim.cmd [[
   augroup end
 ]]
 
-local execute = vim.api.nvim_command
-local fn      = vim.fn
+local execute      = vim.api.nvim_command
+local fn           = vim.fn
 
 -- Automatically install packer
 local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
@@ -83,10 +83,10 @@ use "tami5/lspsaga.nvim" -- lsp icons
 -- CMP
 use { 'hrsh7th/nvim-cmp',
 	requires = {
-		{ 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+		{ 'hrsh7th/cmp-buffer',   after = 'nvim-cmp' },
 		'hrsh7th/cmp-nvim-lsp',
 		'hrsh7th/cmp-nvim-lsp-signature-help',
-		{ 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+		{ 'hrsh7th/cmp-path',     after = 'nvim-cmp' },
 		{ 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
 		'lukas-reineke/cmp-under-comparator',
 		{ 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
@@ -113,7 +113,6 @@ use {
 	"nvim-telescope/telescope.nvim",
 	requires = {
 		"nvim-lua/plenary.nvim",
-		"nvim-telescope/telescope-project.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
 	},
 	config = function()
