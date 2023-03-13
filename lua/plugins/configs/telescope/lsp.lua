@@ -42,9 +42,9 @@ M.buffer_references = function(opts)
             end, result)
 
             locations = vim.lsp.util.locations_to_items(
-                filtered_result,
-                vim.lsp.get_client_by_id(ctx.client_id).offset_encoding
-            ) or {}
+                    filtered_result,
+                    vim.lsp.get_client_by_id(ctx.client_id).offset_encoding
+                ) or {}
         end
 
         if vim.tbl_isempty(locations) then
@@ -102,5 +102,5 @@ M.document_symbols = function()
         end
     end)
 end
-
+print("is this running?????")
 return M

@@ -6,7 +6,7 @@ end
 
 toggleterm.setup {
 	size = 20,
-	--	size = 100,
+	--size = 80,
 	open_mapping = [[<c-\>]],
 	hide_numbers = true,
 	shade_filetypes = {},
@@ -15,7 +15,7 @@ toggleterm.setup {
 	start_in_insert = true,
 	insert_mappings = true,
 	persist_size = true,
-	--	direction = "vertical",
+	--direction = "vertical",
 	direction = "horizontal",
 	close_on_exit = true,
 	shell = vim.o.shell,
@@ -28,6 +28,7 @@ toggleterm.setup {
 		},
 	},
 }
+
 function _G.set_terminal_keymaps()
 	local buf_opts = { noremap = true }
 	vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], buf_opts)
@@ -50,7 +51,7 @@ local Terminal = require('toggleterm.terminal').Terminal
 --Julia REPL
 local julia = Terminal:new({ cmd = "julia", hidden = false })
 
-function julia_repl()
+local function julia_repl()
 	julia:toggle()
 end
 
@@ -59,13 +60,13 @@ map("n", "<leader>jr", [[<cmd>lua julia_repl()<CR> using Pkg<CR> Pkg.activate(".
 --Python REPL
 local python_env = Terminal:new({ cmd = "pipenv shell", hidden = false })
 
-function python_repl()
-	function wait(seconds)
-		local start = os.time()
-		repeat
-		until os.time() > start + seconds
-	end
+local function wait(seconds)
+	local start = os.time()
+	repeat
+	until os.time() > start + seconds
+end
 
+function python_repl()
 	python_env:toggle()
 	wait(0.5)
 	vim.cmd("TermExec cmd=python")
