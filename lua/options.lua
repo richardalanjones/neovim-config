@@ -12,6 +12,11 @@ local options = {
 	tabstop = 4,
 }
 
+
+for k, v in pairs(options) do
+	vim.opt[k] = v
+end
+
 -- Make line numbers default
 vim.wo.number = true
 
@@ -45,7 +50,3 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 -- not sure what this does yet
 --vim.opt.shortmess:append 'c'
-
-for k, v in pairs(options) do
-	vim.opt[k] = v
-end

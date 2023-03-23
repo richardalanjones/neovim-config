@@ -2,29 +2,58 @@ return {
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
-
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-
   'tami5/lspsaga.nvim', -- lsp icons
-  --  { -- Theme inspired by Atom
-  --    'navarasu/onedark.nvim',
+
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      require("catppuccin").setup({
+        --      transparent_background = true
+      })
+      vim.cmd.colorscheme 'catppuccin'
+    end,
+  },
+  --  {
+  --    'sainnhe/everforest',
   --    priority = 1000,
   --    config = function()
-  --      vim.cmd.colorscheme 'onedark'
+  --      vim.cmd.colorscheme 'everforest'
+  --      vim.g.everforest_background = 'hard'
+  --      --     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  --      --     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+  --    end,
+  --  },
+
+  --  {
+  --    'dracula/vim',
+  --    priority = 1000,
+  --    config = function()
+  --      vim.cmd.colorscheme 'dracula'
   --      vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
   --      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
   --    end,
   --  },
-  {
-    'dracula/vim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'dracula'
-      vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-    end,
-  },
+
+  --  {
+  --    'Mofiqul/vscode.nvim',
+  --    --    'ray-x/aurora',
+  --    priority = 1000,
+  --    config = function()
+  --      vim.cmd.colorscheme 'vscode'
+  --      vim.cmd.background 'dark'
+  --      require('vscode').setup({
+  --        --    transparent = true,
+  --        disable_nvimtree_bg = true,
+  --      })
+  --      --      vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  --      --     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+  --    end,
+  --  },
+
 
   {
     -- Set lualine as statusline
@@ -33,16 +62,14 @@ return {
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'dracula',
+        theme = 'catppuccin',
         component_separators = '|',
         section_separators = '',
       },
     },
   },
-
   -- Additional lua configuration, makes nvim stuff amazing!
   { 'folke/neodev.nvim',        opts = {} }, -- black ops table is the same as ---> require('neodev').setup()
-
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -57,21 +84,24 @@ return {
       require 'plugins.configs.lsp'
     end,
   },
-
   { "ray-x/lsp_signature.nvim", dependencies = { "neovim/nvim-lspconfig" } },
-
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-buffer',
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      'saadparwaiz1/cmp_luasnip',
+      'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-nvim-lua',
       'lukas-reineke/cmp-under-comparator',
       'hrsh7th/cmp-nvim-lsp-document-symbol',
     },
+    config = function()
+      require('plugins.configs.cmp')
+    end,
   },
-
   ---- snippets
   {
     'L3MON4D3/LuaSnip',
@@ -79,7 +109,6 @@ return {
       require('plugins.configs.snip').setup()
     end,
   },
-
   {
     'windwp/nvim-autopairs',
     config = function()
@@ -89,7 +118,6 @@ return {
       cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '' } }))
     end,
   },
-
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',  opts = {} },
   {
@@ -106,7 +134,6 @@ return {
       },
     },
   },
-
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
@@ -117,10 +144,8 @@ return {
       show_trailing_blankline_indent = false,
     },
   },
-
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
-
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
@@ -130,7 +155,6 @@ return {
       require 'plugins.configs.telescope'
     end,
   },
-
   {
     'nvim-telescope/telescope-fzf-native.nvim',
     -- NOTE: If you are having trouble with this installation,
@@ -140,7 +164,6 @@ return {
       return vim.fn.executable 'make' == 1
     end,
   },
-
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -152,7 +175,6 @@ return {
       require('plugins.configs.treesitter')
     end,
   },
-
   {
     "theprimeagen/harpoon",
     config = function()
@@ -168,20 +190,15 @@ return {
       vim.keymap.set("n", "<C-s>", function() ui.nav_file(4) end)
     end,
   },
-
-
-
   {
     'akinsho/toggleterm.nvim',
     config = function()
       require 'plugins.configs.toggleterm'
     end,
   },
-
   -- other plugins
   "onsails/lspkind-nvim",
   "romgrk/barbar.nvim",
-
   --rust tools
   'simrat39/rust-tools.nvim',
   -- Debugging
