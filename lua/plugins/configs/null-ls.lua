@@ -13,21 +13,24 @@ local sources = {
 			'--no-keep-simple-function-one-line', '--no-break-after-operator', '--column-limit=100',
 			'--break-after-table-lb', '--indent-width=2'
 		}
-	}), formatting.isort, }
+	}),
+	formatting.black.with({
+		extra_args = { "--line-length=120" }
+	}),
+	formatting.isort, }
 
 null_ls.setup({
 	sources = sources,
- on_attach = function(client, bufnr)
-        if client.supports_method("textDocument/formatting") then
-            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                group = augroup,
-                buffer = bufnr,
-                callback = function()
-                    vim.lsp.buf.format({ bufnr = bufnr })
-                end,
-            })
-        end
-    end,
+	on_attach = function(client, bufnr)
+		if client.supports_method("textDocument/formatting") then
+			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = augroup,
+				buffer = bufnr,
+				callback = function()
+					vim.lsp.buf.format({ bufnr = bufnr })
+				end,
+			})
+		end
+	end,
 })
-
